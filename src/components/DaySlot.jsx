@@ -2,7 +2,7 @@ import { ArrowDown, ArrowUp } from "lucide-react";
 
 function DaySlot({ day, icon, weather, temp }) {
   return (
-    <div className="flex items-center justify-between min-h-[80px]">
+    <div className="flex items-center justify-between min-h-20">
       <div className="flex items-center gap-3">
         <span className="text-lg text-neutral-100 w-10">{day}</span>
         <span className="w-6 text-neutral-500">{icon}</span>
