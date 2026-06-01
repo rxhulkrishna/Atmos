@@ -1,6 +1,6 @@
 function PageLoader() {
   return (
-    <div className="flex min-h-screen items-center p-5 justify-center">
+    <div className="fixed inset-0 flex items-center justify-center">
       <div className="logo text-neutral-100 text-3xl font-extrabold">ATMOS</div>
     </div>
   );
