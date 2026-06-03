@@ -14,7 +14,7 @@ function HourSlot({ isActive, data }) {
       <span className="">{time}</span>
       <WeatherIcon main={data?.weather?.[0]?.main} size={20} className="text-sm text-neutral-500"/>
       <span className="text-base text-neutral-100 ">{temp}</span>
-      <span className="text-[#55c9ff] text-xs">{rainPop}%</span>
+      <span className="text-cyan-300 text-xs">{rainPop}%</span>
     </div>
   );
 }

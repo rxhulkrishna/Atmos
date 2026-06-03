@@ -1,6 +1,8 @@
+import { DAILY_FORECAST_HOUR, HOURLY_FORECAST_LIMIT } from "./constants";
+
 export function formattedForecast(forecastData) {
   return {
-    hourly: forecastData.list.slice(0, 8),
+    hourly: forecastData.list.slice(0, HOURLY_FORECAST_LIMIT),
     daily: {
       weather: forecastData.list.filter((data) =>
         filterDailyForecast(data.dt_txt),
@@ -17,7 +19,7 @@ export function getDay(dateString) {
 
 export function filterDailyForecast(date) {
   const time = new Date(date).getHours();
-  return time === 9;
+  return time === DAILY_FORECAST_HOUR;
 }
 
 export function getFormattedTime(dateString) {

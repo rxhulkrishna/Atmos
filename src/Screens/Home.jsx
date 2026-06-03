@@ -1,55 +1,39 @@
-import { useEffect, useState } from "react";
 import PageLoader from "../components/PageLoader";
 import { MapPin } from "lucide-react";
 import StatCard from "../components/StatCard";
 import HourlyForecast from "../components/HourlyForecast";
 import WeatherHero from "../components/WeatherHero";
 import DailyForecast from "../components/DailyForecast";
-import { getCurrentWeather, getForecast } from "../services/atmosService";
-import { formattedForecast } from "../lib/utils";
-import { MIN_LOADING_TIME } from "../lib/constants";
+import useWeather from "../hooks/useWeather";
 
 function Home() {
-  const [weatherData, setWeatherData] = useState(null);
-  const [forecastData, setForecastData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  let timer;
-
-  useEffect(() => {
-    async function fetchData() {
-      const start = Date.now();
-      try {
-        const [weather, forecast] = await Promise.all([
-          getCurrentWeather("Bangalore"),
-          getForecast("Bangalore"),
-        ]);
-        setWeatherData(weather);
-        setForecastData(formattedForecast(forecast));
-      } catch (error) {
-        console.error(error);
-      } finally {
-        const elapsed = Date.now() - start;
-        const remaining = MIN_LOADING_TIME - elapsed;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        timer = setTimeout(() => setLoading(false), remaining);
-      }
-    }
-
-    fetchData();
-    return clearTimeout(timer);
-  }, []);
+  const { weatherData, forecastData, loading, error } = useWeather("Bangalore");
 
   if (loading) {
     return <PageLoader />;
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center gap-4 justify-center h-screen">
+        <p className="text-lg">
+          Failed to load weather data. Please try again later.
+        </p>
+        <button
+          onClick={() => window.location.reload()}
+          className="px-4 py-2 bg-transparent text-white rounded-xl border border-neutral-500 hover:bg-neutral-500/10 transition"
+        >
+          Retry
+        </button>
+      </div>
+    );
   }
 
   return (
     <>
       <header className="flex items-center gap-2 text-base lg:col-span-2 lg:self-start mx-8 my-4">
         <MapPin size="16" /> Bangalore, India
-        <div>
-          
-        </div>
+        <div></div>
       </header>
       <main className="flex flex-col pb-8 m-8 gap-5 lg:grid lg:grid-cols-[1fr_1fr] lg:grid-rows-[auto_auto_auto] lg:gap-6 lg:m-12">
         <WeatherHero main={weatherData?.main} weather={weatherData?.weather} />
