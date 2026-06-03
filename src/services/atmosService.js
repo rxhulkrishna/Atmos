@@ -1,3 +1,6 @@
+const API_KEY = import.meta.env.VITE_API_KEY;
+const API_URL = import.meta.env.VITE_API_URL;
+
 async function fetchData(url) {
   const response = await fetch(url);
 
@@ -10,12 +13,18 @@ async function fetchData(url) {
 
 export function getCurrentWeather(city) {
   return fetchData(
-    `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=3a0e2cf609cf7509de77266bd18d636e`,
+    `${API_URL}/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`,
   );
 }
 
 export function getForecast(city) {
   return fetchData(
-    `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=3a0e2cf609cf7509de77266bd18d636e`,
+    `${API_URL}/data/2.5/forecast?q=${city}&units=metric&appid=${API_KEY}`,
+  );
+}
+
+export function searchCities(query) {
+  return fetchData(
+    `${API_URL}/geo/1.0/direct?q=${query}&limit=5&appid=${API_KEY}`,
   );
 }

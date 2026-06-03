@@ -45,7 +45,7 @@ function Home() {
 
   return (
     <>
-      <header className="flex items-center gap-2 text-base lg:col-span-2 lg:self-start m-8">
+      <header className="flex items-center gap-2 text-base lg:col-span-2 lg:self-start mx-8 my-4">
         <MapPin size="16" /> Bangalore, India
         <div>
           
