@@ -1,19 +1,24 @@
-import { CloudRainIcon } from "lucide-react";
+// import { getWeatherIcon } from "../constants";
 
-function WeatherHero() {
+import WeatherIcon from "./WeatherIcon";
+
+function WeatherHero({main, weather}) {
+  // const Icon = getWeatherIcon(weather?.[0]?.main);
   return (
     <section className="flex flex-col items-center lg:self-center">
-      <span className="heading text-9xl tracking-tighter">28°</span>
-      <span className="flex gap-4 relative right-3 text-lg font-extralight items-center">
-        <CloudRainIcon size="20" />{" "}
-        <span className="tracking-widest">CLOUDY</span>
+      <span className="heading text-9xl tracking-tighter">{Math.floor(main?.temp)}°</span>
+      <span className="flex gap-2 relative right-3 text-sm lg:text-lg font-extralight items-center">
+        {/* <CloudRainIcon size="20" />{" "} */}
+        {/* <img src={`https://openweathermap.org/img/w/${weather?.[0].icon}.png`}/> */}
+        <WeatherIcon main={weather?.[0]?.main} size={20}/>
+        <span className="tracking-widest capitalize">{weather?.[0].description}</span>
       </span>
       <div className="flex gap-2 mt-1">
-        <span className="flex gap-2 relative right-3 text-lg items-center text-neutral-100">
-          <span className="text-neutral-500">H:</span> 31°
+        <span className="flex gap-2 relative right-3 text-sm lg:text-lg items-center text-neutral-100">
+          <span className="text-neutral-500">H:</span> {Math.floor(main?.temp_max)}°
         </span>
-        <span className="flex gap-2 relative right-3 text-lg items-center">
-          <span className="text-neutral-500">L:</span> 22°
+        <span className="flex gap-2 relative right-3 text-sm lg:text-lg items-center">
+          <span className="text-neutral-500">L:</span> {Math.floor(main?.temp_min)}°
         </span>
       </div>
     </section>
