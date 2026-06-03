@@ -32,7 +32,7 @@ export default function useWeather(city) {
 
     fetchData();
     return clearTimeout(timer);
-  }, []);
+  }, [city]);
 
   return { weatherData, forecastData, loading, error };
 }

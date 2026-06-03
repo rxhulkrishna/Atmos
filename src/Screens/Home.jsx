@@ -1,14 +1,16 @@
 import PageLoader from "../components/PageLoader";
-import { MapPin } from "lucide-react";
 import StatCard from "../components/StatCard";
 import HourlyForecast from "../components/HourlyForecast";
 import WeatherHero from "../components/WeatherHero";
 import DailyForecast from "../components/DailyForecast";
 import useWeather from "../hooks/useWeather";
+import SearchHeader from "../components/SearchHeader";
+import { useState } from "react";
+import { DEFAULT_CITY } from "../lib/constants";
 
 function Home() {
-  const { weatherData, forecastData, loading, error } = useWeather("Bangalore");
-
+  const [location, setLocation] = useState(DEFAULT_CITY);
+  const { weatherData, forecastData, loading, error } = useWeather(location);
   if (loading) {
     return <PageLoader />;
   }
@@ -30,12 +32,9 @@ function Home() {
   }
 
   return (
-    <>
-      <header className="flex items-center gap-2 text-base lg:col-span-2 lg:self-start mx-8 my-4">
-        <MapPin size="16" /> Bangalore, India
-        <div></div>
-      </header>
-      <main className="flex flex-col pb-8 m-8 gap-5 lg:grid lg:grid-cols-[1fr_1fr] lg:grid-rows-[auto_auto_auto] lg:gap-6 lg:m-12">
+    <div className="min-h-screen py-4 px-6 lg:p-12">
+      <SearchHeader location={location} setLocation={setLocation} />
+      <main className="flex flex-col pb-8 gap-5 lg:grid lg:grid-cols-[1fr_1fr] lg:grid-rows-[auto_auto_auto] lg:gap-6 lg:m-12">
         <WeatherHero main={weatherData?.main} weather={weatherData?.weather} />
         <StatCard
           humidity={weatherData?.main?.humidity}
@@ -46,7 +45,7 @@ function Home() {
         <HourlyForecast hourlyData={forecastData?.hourly} label="Hourly" />
         <DailyForecast dailyData={forecastData?.daily} label="5 Day Forecast" />
       </main>
-    </>
+    </div>
   );
 }
 
