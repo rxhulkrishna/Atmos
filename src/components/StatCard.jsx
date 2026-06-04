@@ -22,7 +22,7 @@ function StatCard({ humidity, feelslike, windspeed, visibility }) {
 
       <StatItem
         icon={<Eye size="20" />}
-        value={`${visibility / 1000} km`}
+        value={`${Math.ceil(visibility / 1000)} km`}
         title="VISIBILITY"
       />
     </section>

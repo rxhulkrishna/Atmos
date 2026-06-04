@@ -21,8 +21,7 @@ export default function useWeather(city) {
         setWeatherData(weather);
         setForecastData(formattedForecast(forecast));
       } catch (error) {
-        console.log(error);
-        setError(true);
+        setError(error.message);
       } finally {
         const elapsed = Date.now() - start;
         const remaining = MIN_LOADING_TIME - elapsed;
